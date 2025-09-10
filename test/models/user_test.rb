@@ -7,8 +7,8 @@ class UserTest < ActiveSupport::TestCase
   test "username must be present" do
     user = User.new(username: "")
     assert !user.valid?, "username must have name"
-  end  
-  test "username unique" do 
+  end
+  test "username unique" do
     User.create(username: "Avel")
     user = User.new(username: "Avel")
     assert !user.valid?, "user is unique"

@@ -6,8 +6,8 @@ Rails.application.routes.draw do
   root to: "home#index"
   get "up" => "rails/health#show", as: :rails_health_check
 
-  get '/users/new' => "users#new", as: 'new_user'
-  post '/users' => "users#create", as: 'create_user'
+  get "/users/new" => "users#new", as: "new_user"
+  post "/users" => "users#create", as: "create_user"
 
   # get "sign_up", "user#new"
   # post "sign_up", to "user#create"
