@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = user.find(params[:id])
+    @user = User.find(params[:id])
   end
 
   def new
@@ -17,6 +17,7 @@ class UsersController < ApplicationController
     if @user.save
       redirect_to root_path, notice: "Account Successfuly Created!"
     else
+      puts @user.errors.full_messages
       render :new
     end
   end
