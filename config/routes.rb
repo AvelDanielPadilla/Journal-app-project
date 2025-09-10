@@ -8,6 +8,11 @@ Rails.application.routes.draw do
 
   get "/users/new" => "users#new", as: "new_user"
   post "/users" => "users#create", as: "create_user"
+  get "/users/:id" => "users#show", as: "user"
+  get "/articles/:id/edit" => "userss#edit", as: "edit_users"
+  put "articles/:id" => "users#update", as: "update_user"
+  patch "users/:id" => "users#update"
+  delete "users/:id" => "users#delete", as: "delete_user"
 
   # get "sign_up", "user#new"
   # post "sign_up", to "user#create"
