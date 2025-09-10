@@ -1,0 +1,37 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+development:
+  <<: *default
+  database: journaling_development
+  username: <%= ENV['DATABASE_USERNAME'] || 'postgres'  %>
+  password: <%= ENV['DATABASE_PASSWORD'] || 'Tingkaw'  %>
+  host: <%= ENV['DATABASE_HOST'] || 'localhost' %>
+  port: <%= ENV['DATABASE_PORT'] || 5432 %>
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: journaling_test
+  username: <%= ENV['DATABASE_USERNAME'] || 'postgres' %>
+  password: <%= ENV['DATABASE_PASSWORD'] || 'Tingkaw' %>
+  host: <%= ENV['DATABASE_HOST'] || 'localhost' %>
+  port: <%= ENV['DATABASE_PORT'] || 5432 %>
+production:
+  primary: &primary_production
+    <<: *default
+    database: journaling_production
+    username: test_app
+    password: <%= ENV["TEST_APP_DATABASE_PASSWORD"] %>
+  cache:
+    <<: *primary_production
+    database: journaling_production_cache
+    migrations_paths: db/cache_migrate
+  queue:
+    <<: *primary_production
+    database: journaling_production_queue
+    migrations_paths: db/queue_migrate
+  cable:
+    <<: *primary_production
+    database: journaling_production_cable
+    migrations_paths: db/cable_migrate
