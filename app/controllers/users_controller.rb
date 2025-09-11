@@ -15,7 +15,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      redirect_to root_path, notice: "Account Successfuly Created!"
+      flash.notice = "Welcome! You are now registered successfully"
+      redirect_to root_path
     else
       puts @user.errors.full_messages
       render :new
