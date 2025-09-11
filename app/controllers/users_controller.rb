@@ -39,6 +39,19 @@ class UsersController < ApplicationController
     @user
   end
 
+  def sign_in
+    @user = User.where(username: params[:user][:username], email: params[:user][:email]).first
+    
+    if @user
+      @user.update(signed_in: true)
+      flash.notice = "Signed successfully!"
+      redirect_to users_path
+    else
+      flash.alert = "Please register a new user"
+      redirect_to root_path
+    end
+  end
+
   private
   def user_params
     params.require(:user).permit(:username, :email)

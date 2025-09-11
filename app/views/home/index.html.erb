@@ -1,7 +1,7 @@
 <h1>Welcome to LIFE</h1>
 <p>(your personal journal and task organizer)</p>
 
-<%= form_with model: @user, url: user_path, method: :get do |f|%>
+<%= form_with model: @user, url: sign_in_user_path, local: true do |f|%>
   <div class="form-group row mt-3">
 
           <%= f.label :email, "Email" %>
@@ -27,4 +27,6 @@
 
   </div>
 
-     <% end %>
+<% end %>
+
+
