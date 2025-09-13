@@ -13,7 +13,7 @@ class CategoriesController < ApplicationController
 
   def create
     @category = Category.new(category_params)
-
+    @users = User.order(:id)
     if @category.save
       flash.notice = "New category has been added"
       redirect_to users_path
