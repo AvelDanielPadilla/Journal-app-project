@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   def index
     @users = User.order(:id)
     @categories = Category.order(:id)
+    puts "Categories: #{@categories.inspect}"
   end
 
   def show
