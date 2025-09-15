@@ -1,3 +1,6 @@
+<% if flash.notice %>
+  <div class="alert alert-success"><%= flash.notice %></div>
+<% end %>
 <table>
   <thead>
     <tr>
@@ -22,5 +25,8 @@
       <li>
         <strong><%= task.taskname %></strong> - <%= task.details %> (Due: <%= task.duedate %>)
       </li>
+      <button><%= link_to 'Show Task', task_path(task.id) %></button>
+      <button><%= link_to 'Edit Task', edit_task_path(task.id)%></button>
+      <%= button_to 'Delete Task', delete_task_path(task.id), method: :delete %>
     <% end %>
   </ul>

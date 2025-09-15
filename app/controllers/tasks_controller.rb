@@ -43,7 +43,10 @@ class TasksController < ApplicationController
   end
 
   def delete
-    @task
+    @task = Task.find(params[:id])
+    category = @task.category
+    @task.delete
+    redirect_to category_path(category)
   end
 
   private

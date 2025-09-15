@@ -32,7 +32,7 @@ Rails.application.routes.draw do
   get "/tasks/:id/edit" => "tasks#edit", as: "edit_task"
   put "tasks/:id" => "tasks#update", as: "update_task"
   patch "tasks/:id" => "tasks#update"
-  delete "tasks/:id" => "tasks#delete", as: "delete_task"
+  delete "/tasks/:id" => "tasks#delete", as: "delete_task"
 
   # get "sign_up", "user#new"
   # post "sign_up", to "user#create"
