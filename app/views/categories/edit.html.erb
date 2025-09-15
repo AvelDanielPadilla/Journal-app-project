@@ -1,0 +1,17 @@
+<%= form_with scope: :category, url: update_category_path, method: :put, local: true do |f| %>
+
+<p>
+  <%= f.label :note %><br/>
+  <%= f.text_field :note %>
+</p>
+
+<p>
+  <%= f.label :description %><br/>
+  <%= f.text_field :description %>
+</p>
+
+<p>
+  <%= f.submit %>
+</p>
+
+<% end %>

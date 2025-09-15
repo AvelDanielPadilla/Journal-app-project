@@ -16,7 +16,7 @@
       <td><%= category.description %></td>
       <br>
       <td><button><%= link_to 'Show', category_path(category.id) %></button></td>
-      <td><%= button_to 'Edit', edit_category_path(category.id)%></td>
+      <td><button><%= link_to 'Edit', edit_category_path(category.id)%></button></td>
       <td><%= button_to 'Delete', delete_category_path(category.id), method: :delete %></td>
     </tr>
   <% end %>

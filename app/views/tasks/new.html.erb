@@ -1,0 +1,14 @@
+
+<h2>Create your task</h2>
+<p>Create your personalized task and set a due date for a more efficient and balanced day</p>
+
+<%= form_with model: @task, url: create_task_path, local: true do |f| %>
+  <%= hidden_field_tag :category_id, @category.id %>
+  <%= f.label :taskname %>
+  <%= f.text_field :taskname %>
+  <%= f.label :details %>
+  <%= f.text_field :details %>
+  <%= f.label :duedate %>
+  <%= f.date_field :duedate %>
+  <%= f.submit "Create Task" %>
+<% end %>

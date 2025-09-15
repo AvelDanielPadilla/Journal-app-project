@@ -4,6 +4,7 @@
       <th>No.</th>
       <th>Note</th>
       <th>Description</th>
+      <th><%= link_to "Add Task", new_task_path(category_id: @category.id) %></th>
     </tr>
   </thead>
 
@@ -15,3 +16,11 @@
       </tr>
   </tbody>
 </table>
+<p><strong>Tasks for <%= @category.note %></strong></p>
+  <ul>
+    <% @tasks.each do |task| %>
+      <li>
+        <strong><%= task.taskname %></strong> - <%= task.details %> (Due: <%= task.duedate %>)
+      </li>
+    <% end %>
+  </ul>

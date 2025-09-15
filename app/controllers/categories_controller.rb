@@ -5,6 +5,7 @@ class CategoriesController < ApplicationController
 
   def show
     @category = Category.find(params[:id])
+    @tasks = @category.tasks
   end
 
   def new
@@ -29,7 +30,7 @@ class CategoriesController < ApplicationController
   def update
     @category = Category.find(params[:id])
     if @category.update(category_params)
-      flash.notice = "Category has ben successfully updated"
+      flash.notice = "Category has been successfully updated"
       redirect_to users_path
     else
       reder :edit

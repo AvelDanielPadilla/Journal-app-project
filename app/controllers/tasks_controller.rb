@@ -1,6 +1,10 @@
 class TasksController < ApplicationController
   def index
-    @tasks  = Task.order(:id)
+    if params[:category_id]
+      @tasks = Task.where(category_id: params[:category_id])
+    else
+      @tasks = Task.order(:id)
+    end
   end
 
   def show
@@ -8,16 +12,22 @@ class TasksController < ApplicationController
   end
 
   def new
+    @category = Category.find(params[:category_id]) if params[:category_id]
     @task  = Task.new
   end
 
   def create
-    @task = Task.new(task_params)
-
+    # @task = Task.new(task_params)
+    # @categories = Category.order(:id)
+    # @task = Task.first
+    # @task = @category.tasks.build(task_params)
+    @category = Category.find(params[:category_id])
+    @task = @category.tasks.new(task_params)
     if @task.save
       flash.notice = "New Task added"
-      redirec_to category_path
+      redirect_to category_path(@category)
     else
+      puts @task.errors.full_messages
       flash.alert = "Task not saved"
       render :new
     end
