@@ -1,15 +1,10 @@
 class CategoriesController < ApplicationController
   def index
-    @user =  User.find(params[:id])
-    # @categories = @users.category.all
-    # @categories = Category.order(:id)
     @categories = Current.user.categories
   end
 
   def show
-    @category = Category.find(params[:id])
-    # @tasks = @category.tasks
-    # @category = Current.user.categories.find(params[:id])
+    @category = Current.user.categories.find(params[:id])
     @tasks = @category.tasks
   end
 
@@ -53,12 +48,9 @@ class CategoriesController < ApplicationController
     end
   end
 
-  def delete
-    # @category = Category.find(params[:id])
-    # @category.delete
-    # redirect_to users_path
+  def destroy
     @category = Current.user.categories.find(params[:id])
-    @category.delete
+    @category.destroy
     redirect_to users_path
   end
 
@@ -73,7 +65,6 @@ class CategoriesController < ApplicationController
       flash.alert = "Category not saved"
       redirect_to users_path
     end
-
   end
   private
   def category_params

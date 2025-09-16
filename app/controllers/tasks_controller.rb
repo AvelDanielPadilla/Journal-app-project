@@ -1,27 +1,19 @@
 class TasksController < ApplicationController
+  before_action :set_category, only: [ :index, :new, :create ]
+  before_action :set_task, only: [ :show, :edit, :update, :destroy ]
+
   def index
-    if params[:category_id]
-      @tasks = Task.where(category_id: params[:category_id])
-    else
-      @tasks = Task.order(:id)
-    end
+    @tasks = @category.tasks
   end
 
   def show
-    @task  = Task.find(params[:id])
   end
 
   def new
-    @category = Category.find(params[:category_id]) if params[:category_id]
-    @task  = Task.new
+    @task = @category.tasks.new
   end
 
   def create
-    # @task = Task.new(task_params)
-    # @categories = Category.order(:id)
-    # @task = Task.first
-    # @task = @category.tasks.build(task_params)
-    @category = Category.find(params[:category_id])
     @task = @category.tasks.new(task_params)
     if @task.save
       flash.notice = "New Task added"
@@ -33,24 +25,45 @@ class TasksController < ApplicationController
     end
   end
 
+  def edit
+  end
+
   def update
-    @task = Task.find(params[:id])
     if @task.update(task_params)
-      redirect_to category_path
+      redirect_to category_path(@task.category)
     else
       render :edit
     end
   end
 
-  def delete
-    @task = Task.find(params[:id])
+  def destroy
     category = @task.category
-    @task.delete
-    redirect_to category_path(category)
+    @task.destroy
+    redirect_to category_path(category), notice: "Task was successfully deleted."
   end
 
   private
+
+  def set_category
+    @category = Current.user.categories.find(params[:category_id])
+  end
+
+  def set_task
+    @task = Task.find(params[:id])
+    # Ensure the task belongs to a category owned by the current user
+    unless Current.user.categories.include?(@task.category)
+      redirect_to root_path, alert: "You are not authorized to access this task."
+    end
+  end
+
   def task_params
     params.require(:task).permit(:taskname, :details, :duedate)
   end
 end
+
+
+
+
+
+
+

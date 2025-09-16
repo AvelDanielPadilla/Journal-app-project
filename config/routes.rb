@@ -5,35 +5,45 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   root to: "home#index"
   get "up" => "rails/health#show", as: :rails_health_check
-  get '/users' => "users#index"
+
+  post "/users/sign_in" => "users#sign_in", as: "sign_in_user"
+  delete "/users/sign_out" => "users#sign_out", as: "sign_out_user"
+
+  get "/users" => "users#index"
   get "/users/new" => "users#new", as: "new_user"
   post "/users" => "users#create", as: "create_user"
   get "/users/:id" => "users#show", as: "user"
   get "/users/:id/edit" => "users#edit", as: "edit_users"
   put "users/:id" => "users#update", as: "update_user"
   patch "users/:id" => "users#update"
-  delete "users/:id" => "users#delete", as: "delete_user"
-
-  post "/users/sign_in" => "users#sign_in", as: "sign_in_user"
+  delete "users/:id" => "users#destroy", as: "delete_user"
 
 
-  get '/categories' => "users#index"
+
+
+  get "/categories" => "users#index"
   get "/categories/new" => "categories#new", as: "new_category"
   post "/categories" => "categories#create", as: "create_cat"
   get "/categories/:id" => "categories#show", as: "category"
   get "/categories/:id/edit" => "categories#edit", as: "edit_category"
   put "categories/:id" => "categories#update", as: "update_category"
   patch "categories/:id" => "categories#update"
-  delete "categories/:id" => "categories#delete", as: "delete_category"
+  delete "categories/:id" => "categories#destroy", as: "delete_category"
 
-  get '/tasks' => "tasks#index"
+  # Nested Task routes
+  get "/categories/:category_id/tasks" => "tasks#index", as: "category_tasks"
+  get "/categories/:category_id/tasks/new" => "tasks#new", as: "new_category_task"
+  post "/categories/:category_id/tasks" => "tasks#create"
+
+
+  get "/tasks" => "tasks#index"
   get "/tasks/new" => "tasks#new", as: "new_task"
   post "/tasks" => "tasks#create", as: "create_task"
   get "/tasks/:id" => "tasks#show", as: "task"
   get "/tasks/:id/edit" => "tasks#edit", as: "edit_task"
   put "tasks/:id" => "tasks#update", as: "update_task"
   patch "tasks/:id" => "tasks#update"
-  delete "/tasks/:id" => "tasks#delete", as: "delete_task"
+  delete "/tasks/:id" => "tasks#destroy", as: "delete_task"
 
   # get "sign_up", "user#new"
   # post "sign_up", to "user#create"
