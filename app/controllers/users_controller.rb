@@ -42,8 +42,6 @@ class UsersController < ApplicationController
 
   def delete
     @user 
-    # = User.find(params[:id])
-    # @user.delete
   end
 
   def sign_in
