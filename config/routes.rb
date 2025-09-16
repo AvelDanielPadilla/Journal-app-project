@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   post "/users/sign_in" => "users#sign_in", as: "sign_in_user"
 
+
   get '/categories' => "users#index"
   get "/categories/new" => "categories#new", as: "new_category"
   post "/categories" => "categories#create", as: "create_cat"

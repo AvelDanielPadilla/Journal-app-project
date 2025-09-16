@@ -1,0 +1,21 @@
+<%= form_with scope: :task, url: update_task_path, method: :put, local: true do |f| %>
+  <p>
+    <%= f.label :taskname %><br/>
+    <%= f.text_field :taskname %>
+  </p>
+
+  <p>
+    <%= f.label :details %><br/>
+    <%= f.text_field :details %>
+  </p>
+
+  <p>
+    <%= f.label :duedate %>
+    <%= f.date_field :duedate%>
+  </p>
+
+  <p>
+    <%= f.submit %>
+  </p>
+
+<% end %>

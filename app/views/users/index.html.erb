@@ -9,16 +9,16 @@
 </thead>
 <br>
 <tbody>
-  <% @categories.each do |category| %>
-    <tr>
-      <td><%= category.number %></td>
-      <td><%= category.note %></td>
-      <td><%= category.description %></td>
-      <br>
-      <td><button><%= link_to 'Show', category_path(category.id) %></button></td>
-      <td><button><%= link_to 'Edit', edit_category_path(category.id)%></button></td>
-      <td><%= button_to 'Delete', delete_category_path(category.id), method: :delete %></td>
-    </tr>
-  <% end %>
+    <% @categories.each do |category| %>
+      <tr>
+        <td><%= category.number %></td>
+        <td><%= category.note %></td>
+        <td><%= category.description %></td>
+        <br>
+        <td><button><%= link_to 'Show', category_path(category.id) %></button></td>
+        <td><button><%= link_to 'Edit', edit_category_path(category.id)%></button></td>
+        <td><%= button_to 'Delete', delete_category_path(category.id), method: :delete %></td>
+      </tr>
+    <% end %>
 </tbody>
 

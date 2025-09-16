@@ -23,7 +23,20 @@
   <ul>
     <% @tasks.each do |task| %>
       <li>
-        <strong><%= task.taskname %></strong> - <%= task.details %> (Due: <%= task.duedate %>)
+        <strong><%= task.taskname %></strong> - <%= task.details %> 
+        (Due:
+        <% if task.duedate == Date.today %>
+          <span style="background-color: orange; color: black; padding: 2px 6px; border-radius: 4px;">
+            <%= task.duedate %> (Today)
+          </span>
+        <% elsif task.duedate < Date.today %>
+          <span style="background-color: red; color: white; padding: 2px 6px; border-radius: 4px;">
+            <%= task.duedate %> (Past Due)
+          </span>
+        <% else %>
+          <%= task.duedate %>
+        <% end %>
+      )
       </li>
       <button><%= link_to 'Show Task', task_path(task.id) %></button>
       <button><%= link_to 'Edit Task', edit_task_path(task.id)%></button>

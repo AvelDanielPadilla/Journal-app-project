@@ -1,10 +1,15 @@
 class CategoriesController < ApplicationController
   def index
-    @categories = Category.order(:id)
+    @user =  User.find(params[:id])
+    # @categories = @users.category.all
+    # @categories = Category.order(:id)
+    @categories = Current.user.categories
   end
 
   def show
     @category = Category.find(params[:id])
+    # @tasks = @category.tasks
+    # @category = Current.user.categories.find(params[:id])
     @tasks = @category.tasks
   end
 
@@ -13,32 +18,46 @@ class CategoriesController < ApplicationController
   end
 
   def create
-    @user = User.where(signed_in: true).first
-    @category = @user.categories.build(category_params)
-    #puts category_params.inspect
-    #puts @category.inspect
-    #puts @category.valid?
+    # @user = User.where(signed_in: true).first
+    # @category = @user.categories.build(category_params)
+    # #puts category_params.inspect
+    # #puts @category.inspect
+    # #puts @category.valid?
+    # if @category.save
+    #   flash.notice = "New category has been added"
+    #   redirect_to users_path
+    # else
+    #   flash.alert = "Category was not saved"
+    #   render :new
+    # end
+    @category = Current.user.categories.build(category_params)
+
     if @category.save
-      flash.notice = "New category has been added"
       redirect_to users_path
     else
-      flash.alert = "Category was not saved"
       render :new
     end
   end
 
+  def edit
+    @category = Current.user.categories.find(params[:id])
+  end
+
   def update
-    @category = Category.find(params[:id])
+    @category = Current.user.categories.find(params[:id])
+
     if @category.update(category_params)
-      flash.notice = "Category has been successfully updated"
       redirect_to users_path
     else
-      reder :edit
+      render :edit
     end
   end
 
   def delete
-    @category = Category.find(params[:id])
+    # @category = Category.find(params[:id])
+    # @category.delete
+    # redirect_to users_path
+    @category = Current.user.categories.find(params[:id])
     @category.delete
     redirect_to users_path
   end
@@ -54,10 +73,11 @@ class CategoriesController < ApplicationController
       flash.alert = "Category not saved"
       redirect_to users_path
     end
+
   end
   private
   def category_params
-    params.require(:category).permit(:note, :description, :number)
+    params.require(:category).permit(:user_id, :note, :description, :number)
   end
   def user_params
     params.require(:user).permit(:username, :email)
